@@ -103,6 +103,7 @@ support_locales = [
     "de-DE",
     "en-US",
     "fr-FR",
+    "ko-KR",
     "vi-VN",
     "th-TH",
 ]
@@ -856,8 +857,17 @@ with right_panel:
         saved_font_name_index = 0
         if saved_font_name in font_names:
             saved_font_name_index = font_names.index(saved_font_name)
-        params.font_name = st.selectbox(
-            tr("Font"), font_names, index=saved_font_name_index
+        
+        # Import font selector component
+        from webui.components.font_selector import font_selector_with_preview
+        
+        params.font_name = font_selector_with_preview(
+            label=tr("Font"),
+            font_names=font_names, 
+            font_dir=font_dir,
+            selected_index=saved_font_name_index,
+            preview_text="한글자막 Korean Subtitle 123",
+            tr_func=tr
         )
         config.ui["font_name"] = params.font_name
 
